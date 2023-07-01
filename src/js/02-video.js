@@ -8,3 +8,20 @@ const onTimeupdate = function(data) {
 };
 
 player.on('timeupdate', onTimeupdate);
+
+const savedTime = localStorage.getItem('videoplayer-current-time');
+const seekTime = JSON.parse(savedTime);
+
+player.setCurrentTime(seekTime).then(function(seconds) {
+    console.log('Плеєр перемістився на час:', seconds);
+}).catch(function(error) {
+    switch (error.name) {
+        case 'RangeError':
+            console.log('Час був менше 0 або більше тривалості відео');
+            break;
+
+        default:
+            console.log('Сталася інша помилка:', error);
+            break;
+    }
+});
