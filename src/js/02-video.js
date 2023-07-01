@@ -1,2 +1,9 @@
 import Player from '@vimeo/player';
-console.log(Player);
+const player = new Player('vimeo-player');
+player.on('timeupdate', function(event) {
+    const currentTime = event.seconds;
+    localStorage.setItem('videoplayer-current-time', currentTime);
+  });
+  player.ready().then(function() {
+    player.play();
+  });
