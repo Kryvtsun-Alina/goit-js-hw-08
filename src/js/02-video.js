@@ -1,9 +1,10 @@
 import Player from '@vimeo/player';
-const player = new Player('vimeo-player');
-player.on('timeupdate', function(event) {
-    const currentTime = event.seconds;
-    localStorage.setItem('videoplayer-current-time', currentTime);
-  });
-  player.ready().then(function() {
-    player.play();
-  });
+const videoElement = document.querySelector("#vimeo-player");
+const player = new Player(videoElement);
+const onTimeupdate = function(data) {
+   const currentTime = data.seconds;
+   console.log('Оновлення часу відтворення:', currentTime);
+   localStorage.setItem('videoplayer-current-time', currentTime)
+};
+
+player.on('timeupdate', onTimeupdate);
